@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/store/hooks";
 import { startTimerThunk } from "../model/timerThunks";
-import { openSettings } from "../../../app/ui/uiSlice";
+import { openConfirmResetSession, openSettings } from "../../../app/ui/uiSlice";
 import { formatMMSS } from "../../../shared/lib/time";
 import { incCurrentPhaseMinutesThunk, decCurrentPhaseMinutesThunk } from "../../settings/model/settingsThunks";
 import { getPhaseLabel } from "../../../shared/lib/phase";
 import { CycleDots } from "../../../shared/ui/CycleDots";
 import { commitDraftTaskThunk } from "../../tasks/model/tasksThunks";
-import { setDraftTitle, clearCurrentTask } from "../../tasks/model/tasksSlice";
-import { stopTimerThunk, resetSessionThunk } from "../model/timerThunks";
+import { setDraftTitle } from "../../tasks/model/tasksSlice";
 
 import LogoIcon from '../../../assets/icons/logo.svg?react';
 import MenuIcon from '../../../assets/icons/menu.svg?react';
@@ -50,11 +49,6 @@ export const MainPanel = () => {
     }
     dispatch(startTimerThunk());
   };
-  const handleReset = () => {
-    dispatch(stopTimerThunk());
-    dispatch(clearCurrentTask());
-    dispatch(resetSessionThunk());
-  };
 
   return (
     <div className="bg-white text-black dark:bg-black dark:text-white w-full max-w-225 m-auto">
@@ -90,8 +84,8 @@ export const MainPanel = () => {
 
           {/* Task */}
           {!currentTask ? (
-          <section className=" space-y-4 text-center -mb-4">
-            <input className={`w-full rounded-2xl p-3 outline-2 text-2xl text-center ${inputError ? "outline-accent" : "outline-black dark:outline-white"}`}
+          <section className=" space-y-4 text-center -mb-4 w-full self-center">
+            <input className={`w-full rounded-2xl p-3 border-2 text-2xl text-center ${inputError ? "border-accent" : "border-black dark:border-white"}`}
             value={draftTitle}
             onChange={(e) => {
               dispatch(setDraftTitle(e.target.value));
@@ -116,7 +110,7 @@ export const MainPanel = () => {
           )}
 
           {/* Buttons */}
-          <section className="flex flex-col gap-2">
+          <section className="flex flex-col gap-3 w-full self-center">
           <button
             onClick={handleStart}
             onBlur={() => {
@@ -128,8 +122,8 @@ export const MainPanel = () => {
           </button>
             {currentTask && ( 
             <button
-              className="w-full rounded-2xl text-black pt-3 pb-4 text-2xl font-regular dark:text-white cursor-pointer hover:text-accent hover:scale-103 transition duration-300"
-              onClick={handleReset}
+              className="w-full rounded-2xl text-black pt-3 pb-4 text-2xl border-2 font-regular dark:text-white cursor-pointer hover:text-accent hover:scale-103 transition duration-300"
+              onClick={() => dispatch(openConfirmResetSession())}
             >
               reset
             </button>
