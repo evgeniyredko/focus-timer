@@ -1,10 +1,12 @@
 import { useAppDispatch, useAppSelector } from "../../../app/store/hooks";
-import { stopTimerThunk, skipPhaseThunk, togglePauseThunk } from "../model/timerThunks";
+import { togglePauseThunk } from "../model/timerThunks";
 import { useTimerTicker } from "../lib/useTimerTicker";
 import { formatMMSS } from "../../../shared/lib/time";
 import { CycleDots } from "../../../shared/ui/CycleDots";
-import { getPhaseLabel } from "../../../shared/lib/phase";
 import { ProgressCircle } from "./ProgressCircle";
+import { translate } from "../../../shared/i18n/translate";
+import { openConfirmSkipSession } from "../../../app/ui/uiSlice";
+import { openConfirmStopSession } from "../../../app/ui/uiSlice";
 
 import StopIcon from '../../../assets/icons/stop.svg?react';
 import SkipIcon from '../../../assets/icons/skip.svg?react';
@@ -20,7 +22,7 @@ export const RunningPanel = () => {
   const cyclesCompleted = useAppSelector((s) => s.timer.cyclesCompleted);
   const cyclesBeforeLongBreak = useAppSelector((s) => s.settings.cyclesBeforeLongBreak);
   const phase = useAppSelector((state) => state.timer.phase);
-  const PhaseLabel = getPhaseLabel(phase);
+  const lang = useAppSelector((s) => s.settings.language);
   const totalSeconds = useAppSelector((state) => state.timer.totalSeconds)
   const progress =
   totalSeconds > 0
@@ -48,20 +50,20 @@ export const RunningPanel = () => {
               <div className="text-5xl font-bold">{formatMMSS(secondsLeft)}</div>
             </div>
             <div className="text-center text-2xl font-semibold mt-2">
-              <div className="">{PhaseLabel}</div>
+              <div className="">{translate("phase", phase, lang)}</div>
             </div>
           </div>
         </div>
 
         {/* Buttons */}
         <div className="flex gap-6 items-center">
-          <StopIcon className="h-15 w-15 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300" onClick={() => dispatch(stopTimerThunk())} />
+          <StopIcon className="h-15 w-15 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300" onClick={() => dispatch(openConfirmStopSession())} />
           {status === "running" ? 
           <PauseIcon className="h-20 w-20 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300" onClick={() => dispatch(togglePauseThunk())} />
           :
           <PlayIcon className="h-20 w-20 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300" onClick={() => dispatch(togglePauseThunk())} />
           }
-          <SkipIcon className="h-15 w-15 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300" onClick={() => dispatch(skipPhaseThunk())} />
+          <SkipIcon className="h-15 w-15 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300" onClick={() => dispatch(openConfirmSkipSession())} />
         </div>
       </div>
     </div>

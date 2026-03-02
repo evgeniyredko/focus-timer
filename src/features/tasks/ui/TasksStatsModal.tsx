@@ -1,11 +1,13 @@
 import { useAppDispatch, useAppSelector } from "../../../app/store/hooks";
 import { closeTasksModal } from "../../../app/ui/uiSlice";
 import { formatHHMMSS } from "../../../shared/lib/time";
+import { translate } from "../../../shared/i18n/translate";
 
 export const TasksStatsModal = () => {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.ui.isTasksModalOpen);
   const tasks = useAppSelector((state) => state.tasks.tasks);
+  const lang = useAppSelector((s) => s.settings.language);
 
   if (!isOpen) return null;
 
@@ -17,10 +19,10 @@ export const TasksStatsModal = () => {
   return (
     <div className="fixed inset-0 bg-black/85 flex items-center justify-center z-50">
       <div className="bg-white dark:bg-black rounded-2xl p-4 pt-6 w-150 m-6 text-center dark:outline-1">
-        <div className="text-3xl pb-4 border-b font-bold">TODAY</div>
+        <div className="text-3xl pb-4 border-b font-bold">{translate("statistic", "today", lang)}</div>
         {tasksFiltered.length === 0 ? (
           <div className="text-center mt-4 text-2xl font-semibold">
-            No tasks
+            {translate("statistic", "noTasks", lang)}
           </div>
         ) : (
           tasksFiltered.map(task => (
@@ -36,7 +38,7 @@ export const TasksStatsModal = () => {
           }}
           className="px-6 py-3 text-xl mt-4 font-semibold bg-black dark:bg-white text-white dark:text-black rounded-xl w-full cursor-pointer hover:bg-accent"
         >
-          close
+          {translate("statistic", "close", lang)}
         </button>
       </div>
     </div>

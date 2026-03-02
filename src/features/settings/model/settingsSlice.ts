@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
+export type Language = "en" | "ru";
 type Theme = "light" | "dark" | "system";
 
 const MIN_MINUTES = 5
@@ -16,6 +17,7 @@ export interface SettingsState {
   shortBreakMinutes: number
   longBreakMinutes: number
   cyclesBeforeLongBreak: number
+  language: Language
   theme: Theme
 }
 
@@ -24,6 +26,7 @@ const initialState: SettingsState = {
   shortBreakMinutes: 5,
   longBreakMinutes: 15,
   cyclesBeforeLongBreak: 4,
+  language: "en",
   theme: "system"
 }
 
@@ -56,13 +59,16 @@ const settingsSlice = createSlice({
         state.cyclesBeforeLongBreak = Math.max(MIN_CYCLES, state.cyclesBeforeLongBreak - STEP_CYCLES)
     },
     toggleTheme: (state) => {
-    state.theme = state.theme === "dark" ? "light" : "dark";
+        state.theme = state.theme === "dark" ? "light" : "dark";
+    },
+    setLanguage: (state, action: PayloadAction<Language>) => {
+        state.language = action.payload;
     },
     setTheme: (state, action: PayloadAction<Theme>) => {
-    state.theme = action.payload;
+        state.theme = action.payload;
     },
   }
 })
 
-export const { incFocus, decFocus, incShortBreak, decShortBreak, incLongBreak, decLongBreak, incCycles, decCycles, toggleTheme, setTheme } = settingsSlice.actions
+export const { incFocus, decFocus, incShortBreak, decShortBreak, incLongBreak, decLongBreak, incCycles, decCycles, toggleTheme, setLanguage, setTheme } = settingsSlice.actions
 export default settingsSlice.reducer

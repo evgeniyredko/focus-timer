@@ -8,6 +8,8 @@ interface UiState {
   isTasksModalOpen: boolean
   isConfirmResetStatsOpen: boolean
   isConfirmResetSessionOpen: boolean
+  isConfirmSkipSessionOpen: boolean
+  isConfirmStopSessionOpen: boolean
 }
 
 const initialState: UiState = {
@@ -15,7 +17,9 @@ const initialState: UiState = {
   isPhaseCompleteModalOpen: false,
   isTasksModalOpen: false,
   isConfirmResetStatsOpen: false,
-  isConfirmResetSessionOpen: false
+  isConfirmResetSessionOpen: false,
+  isConfirmSkipSessionOpen: false,
+  isConfirmStopSessionOpen: false
 }
 
 const uiSlice = createSlice({
@@ -55,8 +59,20 @@ const uiSlice = createSlice({
     closeConfirmResetSession: (state) => {
       state.isConfirmResetSessionOpen = false;
     },
+    openConfirmSkipSession: (state) => {
+      state.isConfirmSkipSessionOpen = true;
+    },
+    closeConfirmSkipSession: (state) => {
+      state.isConfirmSkipSessionOpen = false;
+    },
+    openConfirmStopSession: (state) => {
+      state.isConfirmStopSessionOpen = true;
+    },
+    closeConfirmStopSession: (state) => {
+      state.isConfirmStopSessionOpen = false;
+    },
   }
 })
 
-export const { openMain, openTimer, openSettings, openPhaseCompleteModal, closePhaseCompleteModal, openTasksModal, closeTasksModal, openConfirmResetStats, closeConfirmResetStats, openConfirmResetSession, closeConfirmResetSession } = uiSlice.actions
+export const { openMain, openTimer, openSettings, openPhaseCompleteModal, closePhaseCompleteModal, openTasksModal, closeTasksModal, openConfirmResetStats, closeConfirmResetStats, openConfirmResetSession, closeConfirmResetSession, openConfirmSkipSession, closeConfirmSkipSession, openConfirmStopSession, closeConfirmStopSession } = uiSlice.actions
 export default uiSlice.reducer

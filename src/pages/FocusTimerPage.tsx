@@ -6,6 +6,8 @@ import { PhaseCompleteModal } from "../features/timer/ui/PhaseCompleteModal";
 import { TasksStatsModal } from "../features/tasks/ui/TasksStatsModal";
 import { ConfirmResetStatsModal } from "../features/stats/ui/ConfirmResetStatsModal";
 import { ConfirmResetSessionModal } from "../features/timer/ui/ConfirmResetSessionModal";
+import { ConfirmSkipSessionModal } from "../features/timer/ui/ConfirmSkipSessionModal";
+import { ConfirmStopSessionModal } from "../features/timer/ui/ConfirmStopSessionModal";
 import { useApplyTheme } from "../shared/lib/theme";
 
 export const FocusTimerPage = () => {
@@ -38,6 +40,8 @@ export const FocusTimerPage = () => {
       <TasksStatsModal />
       <ConfirmResetStatsModal />
       <ConfirmResetSessionModal />
+      <ConfirmSkipSessionModal />
+      <ConfirmStopSessionModal />
     </div>
   );
 };

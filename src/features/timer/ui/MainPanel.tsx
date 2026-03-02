@@ -4,10 +4,10 @@ import { startTimerThunk } from "../model/timerThunks";
 import { openConfirmResetSession, openSettings } from "../../../app/ui/uiSlice";
 import { formatMMSS } from "../../../shared/lib/time";
 import { incCurrentPhaseMinutesThunk, decCurrentPhaseMinutesThunk } from "../../settings/model/settingsThunks";
-import { getPhaseLabel } from "../../../shared/lib/phase";
 import { CycleDots } from "../../../shared/ui/CycleDots";
 import { commitDraftTaskThunk } from "../../tasks/model/tasksThunks";
 import { setDraftTitle } from "../../tasks/model/tasksSlice";
+import { translate } from "../../../shared/i18n/translate";
 
 import LogoIcon from '../../../assets/icons/logo.svg?react';
 import MenuIcon from '../../../assets/icons/menu.svg?react';
@@ -27,13 +27,13 @@ export const MainPanel = () => {
   longBreakMinutes;
   const seconds = minutes * 60;
   const formattedTime = formatMMSS(seconds);
-  const PhaseLabel = getPhaseLabel(phase);
   const formattedTimeToday = formatMMSS(todaySeconds);
   const cyclesCompleted = useAppSelector((s) => s.timer.cyclesCompleted);
   const cyclesBeforeLongBreak = useAppSelector((s) => s.settings.cyclesBeforeLongBreak);
   const draftTitle = useAppSelector((s) => s.tasks.draftTitle);
   const currentTaskId = useAppSelector((s) => s.tasks.currentTaskId);
   const tasks = useAppSelector((s) => s.tasks.tasks);
+  const lang = useAppSelector((s) => s.settings.language);
   const currentTask = currentTaskId
     ? tasks.find((t) => t.id === currentTaskId)
     : null;
@@ -79,7 +79,7 @@ export const MainPanel = () => {
 
           {/* Mode */}
           <section className="text-center text-2xl font-semibold -mt-7.5">
-            <div className="underline">{PhaseLabel}</div>
+            <div className="underline">{translate("phase", phase, lang)}</div>
           </section>
 
           {/* Task */}
@@ -96,10 +96,10 @@ export const MainPanel = () => {
                 handleStart();
               }
             }}
-            placeholder="Task name..." />
+            placeholder={translate("main", "placeholder", lang)} />
             {inputError && (
-              <p className="text-m text-center text-accent">
-                Enter task name
+              <p className="text-m text-center text-accent -mt-2">
+                {translate("main", "error", lang)}
               </p>
             )}
           </section>
@@ -118,14 +118,14 @@ export const MainPanel = () => {
             }}
             className="w-full rounded-2xl bg-black text-white pt-3 pb-4 text-2xl font-semibold dark:bg-white dark:text-black cursor-pointer hover:bg-accent hover:scale-101 transition duration-300"
           >
-            start
+            {translate("main", "start", lang)}
           </button>
             {currentTask && ( 
             <button
               className="w-full rounded-2xl text-black pt-3 pb-4 text-2xl border-2 font-regular dark:text-white cursor-pointer hover:text-accent hover:scale-103 transition duration-300"
               onClick={() => dispatch(openConfirmResetSession())}
             >
-              reset
+              {translate("main", "reset", lang)}
             </button>
             )}
           </section>
@@ -136,11 +136,11 @@ export const MainPanel = () => {
         <footer className="shrink-0 flex justify-between gap-4 font-extrabold">
           <div className="w-20 text-center">
             <div className="">{tasksCompletedToday}</div>
-            <div className="w-15 m-auto text-black/50 dark:text-white/60">task today</div>
+            <div className="w-15 m-auto text-black/50 dark:text-white/60">{translate("main", "taskToday", lang)}</div>
           </div>
           <div className="w-20 text-center">
             <div className="">{formattedTimeToday}</div>
-            <div className="w-15 m-auto text-black/50 dark:text-white/60">time today</div>
+            <div className="w-15 m-auto text-black/50 dark:text-white/60">{translate("main", "timeToday", lang)}</div>
           </div>
         </footer>
 
