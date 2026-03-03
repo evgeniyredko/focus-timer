@@ -4,12 +4,11 @@ import { clearCurrentTask } from "../../tasks/model/tasksSlice";
 import { closeConfirmResetSession } from "../../../app/ui/uiSlice";
 import { translate } from "../../../shared/i18n/translate";
 
-
 export const ConfirmResetSessionModal = () => {
   const dispatch = useAppDispatch();
   const lang = useAppSelector((s) => s.settings.language);
   const isOpen = useAppSelector((state) => state.ui.isConfirmResetSessionOpen);
-  
+
   const handleReset = () => {
     dispatch(stopTimerThunk());
     dispatch(clearCurrentTask());

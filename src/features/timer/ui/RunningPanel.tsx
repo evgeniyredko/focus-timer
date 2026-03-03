@@ -8,10 +8,10 @@ import { translate } from "../../../shared/i18n/translate";
 import { openConfirmSkipSession } from "../../../app/ui/uiSlice";
 import { openConfirmStopSession } from "../../../app/ui/uiSlice";
 
-import StopIcon from '../../../assets/icons/stop.svg?react';
-import SkipIcon from '../../../assets/icons/skip.svg?react';
-import PauseIcon from '../../../assets/icons/pause.svg?react';
-import PlayIcon from '../../../assets/icons/play.svg?react';
+import StopIcon from "../../../assets/icons/stop.svg?react";
+import SkipIcon from "../../../assets/icons/skip.svg?react";
+import PauseIcon from "../../../assets/icons/pause.svg?react";
+import PlayIcon from "../../../assets/icons/play.svg?react";
 
 export const RunningPanel = () => {
   useTimerTicker();
@@ -23,22 +23,19 @@ export const RunningPanel = () => {
   const cyclesBeforeLongBreak = useAppSelector((s) => s.settings.cyclesBeforeLongBreak);
   const phase = useAppSelector((state) => state.timer.phase);
   const lang = useAppSelector((s) => s.settings.language);
-  const totalSeconds = useAppSelector((state) => state.timer.totalSeconds)
-  const progress =
-  totalSeconds > 0
-    ? (totalSeconds - secondsLeft) / totalSeconds
-    : 0;
+  const totalSeconds = useAppSelector((state) => state.timer.totalSeconds);
+  const progress = totalSeconds > 0 ? (totalSeconds - secondsLeft) / totalSeconds : 0;
   const currentTaskId = useAppSelector((s) => s.tasks.currentTaskId);
   const tasks = useAppSelector((s) => s.tasks.tasks);
-  const currentTask = currentTaskId
-    ? tasks.find((t) => t.id === currentTaskId)
-    : null;
+  const currentTask = currentTaskId ? tasks.find((t) => t.id === currentTaskId) : null;
 
   return (
     <div className="h-full w-full flex items-center py-12">
-      <div className='flex flex-col max-h-fit items-center justify-center h-screen w-screen gap-14'>
+      <div className="flex flex-col max-h-fit items-center justify-center h-screen w-screen gap-14">
         <section className=" space-y-4 flex justify-center font-semibold -mb-2.5">
-          <div className="relative px-6 max-w-full text-center line-clamp-2 text-3xl wrap-break-words">{currentTask && <span>{currentTask.title}</span>}</div>
+          <div className="relative px-6 max-w-full text-center line-clamp-2 text-3xl wrap-break-words">
+            {currentTask && <span>{currentTask.title}</span>}
+          </div>
         </section>
         <CycleDots total={cyclesBeforeLongBreak} completed={cyclesCompleted} />
 
@@ -57,13 +54,25 @@ export const RunningPanel = () => {
 
         {/* Buttons */}
         <div className="flex gap-6 items-center">
-          <StopIcon className="h-15 w-15 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300" onClick={() => dispatch(openConfirmStopSession())} />
-          {status === "running" ? 
-          <PauseIcon className="h-20 w-20 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300" onClick={() => dispatch(togglePauseThunk())} />
-          :
-          <PlayIcon className="h-20 w-20 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300" onClick={() => dispatch(togglePauseThunk())} />
-          }
-          <SkipIcon className="h-15 w-15 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300" onClick={() => dispatch(openConfirmSkipSession())} />
+          <StopIcon
+            className="h-15 w-15 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300"
+            onClick={() => dispatch(openConfirmStopSession())}
+          />
+          {status === "running" ? (
+            <PauseIcon
+              className="h-20 w-20 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300"
+              onClick={() => dispatch(togglePauseThunk())}
+            />
+          ) : (
+            <PlayIcon
+              className="h-20 w-20 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300"
+              onClick={() => dispatch(togglePauseThunk())}
+            />
+          )}
+          <SkipIcon
+            className="h-15 w-15 text-black dark:text-white cursor-pointer hover:text-accent hover:scale-110 transition duration-300"
+            onClick={() => dispatch(openConfirmSkipSession())}
+          />
         </div>
       </div>
     </div>

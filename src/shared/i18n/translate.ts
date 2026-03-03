@@ -37,14 +37,14 @@ const dict = {
     today: { en: "TODAY", ru: "СЕГОДНЯ" },
     close: { en: "close", ru: "закрыть" },
     noTasks: { en: "No tasks", ru: "Задач нет" },
-  }
+  },
 } as const satisfies Dict;
 
 export const translate = <
   String extends keyof typeof dict,
-  Key extends keyof typeof dict[String]
+  Key extends keyof (typeof dict)[String],
 >(
   section: String,
   key: Key,
-  lang: Language & keyof (typeof dict)[String][Key]
+  lang: Language & keyof (typeof dict)[String][Key],
 ) => dict[section][key][lang];

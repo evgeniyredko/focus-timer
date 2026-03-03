@@ -19,7 +19,9 @@ type PersistedState = {
   settings: SettingsState;
 };
 
-export const loadPersistedState = (): { tasks: TasksState; stats: StatsState; settings: SettingsState } | undefined => {
+export const loadPersistedState = ():
+  | { tasks: TasksState; stats: StatsState; settings: SettingsState }
+  | undefined => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return undefined;
@@ -27,14 +29,14 @@ export const loadPersistedState = (): { tasks: TasksState; stats: StatsState; se
     const parsed = JSON.parse(raw) as PersistedState;
     const todayKey = getDayKey();
 
-    parsed.tasks.tasks.forEach(task => {
+    parsed.tasks.tasks.forEach((task) => {
       if (typeof task.todaySecondsSpent !== "number") {
         task.todaySecondsSpent = 0;
       }
     });
 
     if (parsed.dayKey !== todayKey) {
-      parsed.tasks.tasks.forEach(task => {
+      parsed.tasks.tasks.forEach((task) => {
         task.todaySecondsSpent = 0;
       });
 
@@ -42,9 +44,7 @@ export const loadPersistedState = (): { tasks: TasksState; stats: StatsState; se
     }
 
     const stats: StatsState =
-      parsed.dayKey === todayKey
-        ? parsed.stats
-        : { todaySeconds: 0, tasksCompletedToday: 0 };
+      parsed.dayKey === todayKey ? parsed.stats : { todaySeconds: 0, tasksCompletedToday: 0 };
 
     return {
       tasks: parsed.tasks,
@@ -56,7 +56,11 @@ export const loadPersistedState = (): { tasks: TasksState; stats: StatsState; se
   }
 };
 
-export const savePersistedState = (state: { tasks: TasksState; stats: StatsState; settings: SettingsState; }) => {
+export const savePersistedState = (state: {
+  tasks: TasksState;
+  stats: StatsState;
+  settings: SettingsState;
+}) => {
   const data: PersistedState = {
     dayKey: getDayKey(),
     tasks: state.tasks,

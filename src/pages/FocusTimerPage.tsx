@@ -12,29 +12,25 @@ import { useApplyTheme } from "../shared/lib/theme";
 
 export const FocusTimerPage = () => {
   const view = useAppSelector((s) => s.ui.view);
-  useApplyTheme()
+  useApplyTheme();
 
   const translateClass =
-  view === "timer"
-      ? "translate-x-0"
-      : view === "main"
-      ? "-translate-x-1/3"
-      : "-translate-x-2/3";
+    view === "timer" ? "translate-x-0" : view === "main" ? "-translate-x-1/3" : "-translate-x-2/3";
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-white dark:bg-black text-black dark:text-white">
       <div
         className={`flex h-full w-[300%] transform transition-transform duration-300 ease-out ${translateClass}`}
       >
-      <section className="h-full w-screen shrink-0">
-        <RunningPanel />
-      </section>
-      <section className="h-full w-screen shrink-0">
-        <MainPanel />
-      </section>
-      <section className="h-full w-screen shrink-0">
-        <SettingsPanel />
-      </section>
+        <section className="h-full w-screen shrink-0">
+          <RunningPanel />
+        </section>
+        <section className="h-full w-screen shrink-0">
+          <MainPanel />
+        </section>
+        <section className="h-full w-screen shrink-0">
+          <SettingsPanel />
+        </section>
       </div>
       <PhaseCompleteModal />
       <TasksStatsModal />

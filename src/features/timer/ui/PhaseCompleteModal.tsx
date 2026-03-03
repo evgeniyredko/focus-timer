@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../../app/store/hooks";
 import { openMain, closePhaseCompleteModal } from "../../../app/ui/uiSlice";
 
-import DoneIcon from '../../../assets/icons/done.svg?react';
+import DoneIcon from "../../../assets/icons/done.svg?react";
 
 export const PhaseCompleteModal = () => {
   const dispatch = useAppDispatch();

@@ -16,7 +16,8 @@ export const ProgressCircle = ({ progress }: Props) => {
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* background circle */}
-      <circle className="text-black/15 dark:text-white/30"
+      <circle
+        className="text-black/15 dark:text-white/30"
         cx="100"
         cy="100"
         r={radius}

@@ -9,7 +9,7 @@ export const CycleDots = ({ total, completed }: Props) => {
       {Array.from({ length: total }).map((_, i) => (
         <div
           key={i}
-          className={`w-5 h-5 rounded-full ${i < completed ? "bg-black dark:bg-white" : "bg-black/15 dark:bg-white/30" }`}
+          className={`w-5 h-5 rounded-full ${i < completed ? "bg-black dark:bg-white" : "bg-black/15 dark:bg-white/30"}`}
         />
       ))}
     </section>

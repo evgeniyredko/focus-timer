@@ -2,5 +2,5 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-accent: #FF6A00;
+  --color-accent: #ff6a00;
 }

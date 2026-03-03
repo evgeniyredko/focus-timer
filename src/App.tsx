@@ -1,12 +1,9 @@
-import { FocusTimerPage } from './pages/FocusTimerPage';
+import { FocusTimerPage } from "./pages/FocusTimerPage";
 
-import './App.css'
+import "./App.css";
 
 function App() {
-
-  return (
-      <FocusTimerPage />
-  )
+  return <FocusTimerPage />;
 }
 
-export default App
+export default App;

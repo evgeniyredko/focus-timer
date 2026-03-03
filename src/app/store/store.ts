@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import uiReducer from "../ui/uiSlice";
-import settingsReducer from "../../features/settings/model/settingsSlice"
-import timerReducer from "../../features/timer/model/timerSlice"
-import statsReducer from "../../features/stats/model/statsSlice"
-import tasksReducer from "../../features/tasks/model/tasksSlice"
+import settingsReducer from "../../features/settings/model/settingsSlice";
+import timerReducer from "../../features/timer/model/timerSlice";
+import statsReducer from "../../features/stats/model/statsSlice";
+import tasksReducer from "../../features/tasks/model/tasksSlice";
 import { loadPersistedState, savePersistedState } from "./persist";
 
 const preloaded = loadPersistedState();

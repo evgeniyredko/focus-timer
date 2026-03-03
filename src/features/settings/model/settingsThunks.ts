@@ -1,5 +1,12 @@
 import type { AppDispatch, RootState } from "../../../app/store/store";
-import { incFocus, decFocus, incShortBreak, decShortBreak, incLongBreak, decLongBreak } from "./settingsSlice";
+import {
+  incFocus,
+  decFocus,
+  incShortBreak,
+  decShortBreak,
+  incLongBreak,
+  decLongBreak,
+} from "./settingsSlice";
 import { primeAudio, playSound } from "../../../shared/lib/sound";
 
 primeAudio();
@@ -11,7 +18,7 @@ export const incCurrentPhaseMinutesThunk =
     else if (phase === "shortBreak") dispatch(incShortBreak());
     else dispatch(incLongBreak());
     playSound("resume");
-  }
+  };
 
 export const decCurrentPhaseMinutesThunk =
   () => (dispatch: AppDispatch, getState: () => RootState) => {
@@ -21,4 +28,4 @@ export const decCurrentPhaseMinutesThunk =
     else if (phase === "shortBreak") dispatch(decShortBreak());
     else dispatch(decLongBreak());
     playSound("pause");
-  }
+  };

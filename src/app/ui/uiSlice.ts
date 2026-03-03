@@ -3,13 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 type View = "main" | "timer" | "settings";
 
 interface UiState {
-  view: View
-  isPhaseCompleteModalOpen: boolean
-  isTasksModalOpen: boolean
-  isConfirmResetStatsOpen: boolean
-  isConfirmResetSessionOpen: boolean
-  isConfirmSkipSessionOpen: boolean
-  isConfirmStopSessionOpen: boolean
+  view: View;
+  isPhaseCompleteModalOpen: boolean;
+  isTasksModalOpen: boolean;
+  isConfirmResetStatsOpen: boolean;
+  isConfirmResetSessionOpen: boolean;
+  isConfirmSkipSessionOpen: boolean;
+  isConfirmStopSessionOpen: boolean;
 }
 
 const initialState: UiState = {
@@ -19,21 +19,21 @@ const initialState: UiState = {
   isConfirmResetStatsOpen: false,
   isConfirmResetSessionOpen: false,
   isConfirmSkipSessionOpen: false,
-  isConfirmStopSessionOpen: false
-}
+  isConfirmStopSessionOpen: false,
+};
 
 const uiSlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
     openMain: (state) => {
-        state.view = "main"
+      state.view = "main";
     },
     openTimer: (state) => {
-        state.view = "timer"
+      state.view = "timer";
     },
     openSettings: (state) => {
-        state.view = "settings"
+      state.view = "settings";
     },
     openPhaseCompleteModal: (state) => {
       state.isPhaseCompleteModalOpen = true;
@@ -41,7 +41,7 @@ const uiSlice = createSlice({
     closePhaseCompleteModal: (state) => {
       state.isPhaseCompleteModalOpen = false;
     },
-    openTasksModal: (state) => { 
+    openTasksModal: (state) => {
       state.isTasksModalOpen = true;
     },
     closeTasksModal: (state) => {
@@ -71,8 +71,24 @@ const uiSlice = createSlice({
     closeConfirmStopSession: (state) => {
       state.isConfirmStopSessionOpen = false;
     },
-  }
-})
+  },
+});
 
-export const { openMain, openTimer, openSettings, openPhaseCompleteModal, closePhaseCompleteModal, openTasksModal, closeTasksModal, openConfirmResetStats, closeConfirmResetStats, openConfirmResetSession, closeConfirmResetSession, openConfirmSkipSession, closeConfirmSkipSession, openConfirmStopSession, closeConfirmStopSession } = uiSlice.actions
-export default uiSlice.reducer
+export const {
+  openMain,
+  openTimer,
+  openSettings,
+  openPhaseCompleteModal,
+  closePhaseCompleteModal,
+  openTasksModal,
+  closeTasksModal,
+  openConfirmResetStats,
+  closeConfirmResetStats,
+  openConfirmResetSession,
+  closeConfirmResetSession,
+  openConfirmSkipSession,
+  closeConfirmSkipSession,
+  openConfirmStopSession,
+  closeConfirmStopSession,
+} = uiSlice.actions;
+export default uiSlice.reducer;

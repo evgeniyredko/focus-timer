@@ -1,13 +1,17 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
 import svgr from "vite-plugin-svgr";
 
 // https://vite.dev/config/
 export default defineConfig({
   base: "/focus-timer/",
-  plugins: [react(), tailwindcss(), svgr(), VitePWA({
+  plugins: [
+    react(),
+    tailwindcss(),
+    svgr(),
+    VitePWA({
       registerType: "autoUpdate",
       manifest: {
         name: "focus-timer",

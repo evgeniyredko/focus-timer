@@ -35,17 +35,17 @@ const tasksSlice = createSlice({
       state.currentTaskId = action.payload;
     },
     completeTask: (state, action: PayloadAction<string>) => {
-      const t = state.tasks.find(x => x.id === action.payload);
+      const t = state.tasks.find((x) => x.id === action.payload);
       if (t) t.isCompleted = true;
     },
     reopenTask: (state, action: PayloadAction<string>) => {
-      const t = state.tasks.find(x => x.id === action.payload);
+      const t = state.tasks.find((x) => x.id === action.payload);
       if (t) t.isCompleted = false;
     },
     addSecondsToTask: (state, action: PayloadAction<{ id: string; seconds: number }>) => {
-      const t = state.tasks.find(x => x.id === action.payload.id);
+      const t = state.tasks.find((x) => x.id === action.payload.id);
       if (t) {
-        t.secondsSpent += action.payload.seconds; 
+        t.secondsSpent += action.payload.seconds;
         t.todaySecondsSpent += action.payload.seconds;
       }
     },
@@ -57,12 +57,12 @@ const tasksSlice = createSlice({
       state.draftTitle = "";
     },
     resetTasksTodaySeconds: (state) => {
-      state.tasks.forEach(t => {
+      state.tasks.forEach((t) => {
         t.todaySecondsSpent = 0;
       });
-    }
-  }
-})
+    },
+  },
+});
 
 export const {
   setDraftTitle,
@@ -73,6 +73,6 @@ export const {
   addSecondsToTask,
   clearDraft,
   clearCurrentTask,
-  resetTasksTodaySeconds
+  resetTasksTodaySeconds,
 } = tasksSlice.actions;
-export default tasksSlice.reducer
+export default tasksSlice.reducer;
