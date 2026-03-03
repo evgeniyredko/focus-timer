@@ -35,16 +35,17 @@ export const loadPersistedState = ():
       }
     });
 
-    if (parsed.dayKey !== todayKey) {
+    const isSameDay = parsed.dayKey === todayKey;
+
+    if (!isSameDay) {
       parsed.tasks.tasks.forEach((task) => {
         task.todaySecondsSpent = 0;
       });
-
-      parsed.dayKey = todayKey;
     }
 
-    const stats: StatsState =
-      parsed.dayKey === todayKey ? parsed.stats : { todaySeconds: 0, tasksCompletedToday: 0 };
+    const stats: StatsState = isSameDay
+      ? parsed.stats
+      : { todaySeconds: 0, tasksCompletedToday: 0 };
 
     return {
       tasks: parsed.tasks,

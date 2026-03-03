@@ -10,6 +10,7 @@ import {
 import { CycleDots } from "../../../shared/ui/CycleDots";
 import { commitDraftTaskThunk } from "../../tasks/model/tasksThunks";
 import { setDraftTitle } from "../../tasks/model/tasksSlice";
+import { selectCurrentTask } from "../../tasks/model/selectors";
 import { translate } from "../../../shared/i18n/translate";
 
 import LogoIcon from "../../../assets/icons/logo.svg?react";
@@ -36,10 +37,8 @@ export const MainPanel = () => {
   const cyclesCompleted = useAppSelector((s) => s.timer.cyclesCompleted);
   const cyclesBeforeLongBreak = useAppSelector((s) => s.settings.cyclesBeforeLongBreak);
   const draftTitle = useAppSelector((s) => s.tasks.draftTitle);
-  const currentTaskId = useAppSelector((s) => s.tasks.currentTaskId);
-  const tasks = useAppSelector((s) => s.tasks.tasks);
   const lang = useAppSelector((s) => s.settings.language);
-  const currentTask = currentTaskId ? tasks.find((t) => t.id === currentTaskId) : null;
+  const currentTask = useAppSelector(selectCurrentTask);
   const handleStart = () => {
     const hasDraft = draftTitle.trim().length > 0;
     if (!currentTask && !hasDraft) {

@@ -1,14 +1,17 @@
 import type { AppDispatch, RootState } from "../../../app/store/store";
 import { reopenTask, setCurrentTask, addTask, completeTask, clearDraft } from "./tasksSlice";
 
+const normalizeTaskTitle = (title: string) => title.trim().toLowerCase();
+
 export const commitDraftTaskThunk = () => (dispatch: AppDispatch, getState: () => RootState) => {
   const { draftTitle, tasks, currentTaskId } = getState().tasks;
 
   const trimmed = draftTitle.trim();
   if (!trimmed) return;
 
-  const normalize = (s: string) => s.trim().toLowerCase();
-  const found = tasks.find((t) => normalize(t.title) === normalize(trimmed));
+  const found = tasks.find(
+    (task) => normalizeTaskTitle(task.title) === normalizeTaskTitle(trimmed),
+  );
 
   if (currentTaskId && currentTaskId !== found?.id) {
     dispatch(completeTask(currentTaskId));

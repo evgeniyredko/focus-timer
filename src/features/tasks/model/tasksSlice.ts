@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface Task {
+export interface Task {
   id: string;
   title: string;
   secondsSpent: number;
@@ -21,6 +21,8 @@ const initialState: TasksState = {
   draftTitle: "",
 };
 
+const findTaskById = (state: TasksState, id: string) => state.tasks.find((task) => task.id === id);
+
 const tasksSlice = createSlice({
   name: "tasks",
   initialState,
@@ -35,15 +37,15 @@ const tasksSlice = createSlice({
       state.currentTaskId = action.payload;
     },
     completeTask: (state, action: PayloadAction<string>) => {
-      const t = state.tasks.find((x) => x.id === action.payload);
+      const t = findTaskById(state, action.payload);
       if (t) t.isCompleted = true;
     },
     reopenTask: (state, action: PayloadAction<string>) => {
-      const t = state.tasks.find((x) => x.id === action.payload);
+      const t = findTaskById(state, action.payload);
       if (t) t.isCompleted = false;
     },
     addSecondsToTask: (state, action: PayloadAction<{ id: string; seconds: number }>) => {
-      const t = state.tasks.find((x) => x.id === action.payload.id);
+      const t = findTaskById(state, action.payload.id);
       if (t) {
         t.secondsSpent += action.payload.seconds;
         t.todaySecondsSpent += action.payload.seconds;

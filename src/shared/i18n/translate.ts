@@ -13,7 +13,7 @@ const dict = {
   phase: {
     focus: { en: "focus", ru: "фокус" },
     shortBreak: { en: "break", ru: "перерыв" },
-    longBreak: { en: "break", ru: "перерыв" },
+    longBreak: { en: "long break", ru: "длинный перерыв" },
   },
   main: {
     start: { en: "start", ru: "начать" },
@@ -28,6 +28,8 @@ const dict = {
     skip: { en: "skip", ru: "пропустить" },
     stop: { en: "stop", ru: "остановить" },
     cancel: { en: "cancel", ru: "отмена" },
+    done: { en: "done", ru: "готово" },
+    continue: { en: "continue", ru: "продолжить" },
     resetSession: { en: "reset this session?", ru: "сбросить задачу?" },
     resetStatistics: { en: "reset statistics?", ru: "сбросить статистику?" },
     skipSession: { en: "skip this session?", ru: "пропустить задачу?" },

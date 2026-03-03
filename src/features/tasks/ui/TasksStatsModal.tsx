@@ -2,19 +2,15 @@ import { useAppDispatch, useAppSelector } from "../../../app/store/hooks";
 import { closeTasksModal } from "../../../app/ui/uiSlice";
 import { formatHHMMSS } from "../../../shared/lib/time";
 import { translate } from "../../../shared/i18n/translate";
+import { selectTodayTasksSorted } from "../model/selectors";
 
 export const TasksStatsModal = () => {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.ui.isTasksModalOpen);
-  const tasks = useAppSelector((state) => state.tasks.tasks);
+  const tasksFiltered = useAppSelector(selectTodayTasksSorted);
   const lang = useAppSelector((s) => s.settings.language);
 
   if (!isOpen) return null;
-
-  const tasksFiltered = tasks
-    .filter((task) => task.todaySecondsSpent > 0)
-    .slice()
-    .sort((a, b) => b.todaySecondsSpent - a.todaySecondsSpent);
 
   return (
     <div className="fixed inset-0 bg-black/85 flex items-center justify-center z-50">

@@ -5,8 +5,8 @@ import { formatMMSS } from "../../../shared/lib/time";
 import { CycleDots } from "../../../shared/ui/CycleDots";
 import { ProgressCircle } from "./ProgressCircle";
 import { translate } from "../../../shared/i18n/translate";
-import { openConfirmSkipSession } from "../../../app/ui/uiSlice";
-import { openConfirmStopSession } from "../../../app/ui/uiSlice";
+import { openConfirmSkipSession, openConfirmStopSession } from "../../../app/ui/uiSlice";
+import { selectCurrentTask } from "../../tasks/model/selectors";
 
 import StopIcon from "../../../assets/icons/stop.svg?react";
 import SkipIcon from "../../../assets/icons/skip.svg?react";
@@ -25,9 +25,7 @@ export const RunningPanel = () => {
   const lang = useAppSelector((s) => s.settings.language);
   const totalSeconds = useAppSelector((state) => state.timer.totalSeconds);
   const progress = totalSeconds > 0 ? (totalSeconds - secondsLeft) / totalSeconds : 0;
-  const currentTaskId = useAppSelector((s) => s.tasks.currentTaskId);
-  const tasks = useAppSelector((s) => s.tasks.tasks);
-  const currentTask = currentTaskId ? tasks.find((t) => t.id === currentTaskId) : null;
+  const currentTask = useAppSelector(selectCurrentTask);
 
   return (
     <div className="h-full w-full flex items-center py-12">

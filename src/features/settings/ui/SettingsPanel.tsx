@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../../app/store/hooks";
-import { openMain, openTasksModal } from "../../../app/ui/uiSlice";
+import { openConfirmResetStats, openMain, openTasksModal } from "../../../app/ui/uiSlice";
 import { toggleTheme, setLanguage } from "../model/settingsSlice";
-import { openConfirmResetStats } from "../../../app/ui/uiSlice";
 import type { Language } from "../model/settingsSlice";
 import { translate } from "../../../shared/i18n/translate";
 
@@ -13,8 +12,6 @@ import ThemeLight from "../../../assets/icons/theme-light.svg?react";
 export const SettingsPanel = () => {
   const dispatch = useAppDispatch();
   const lang = useAppSelector((s) => s.settings.language);
-  const resetStats = useAppSelector((s) => s.settings.language);
-  const statistics = useAppSelector((s) => s.settings.language);
 
   return (
     <div className="bg-white text-black dark:bg-black dark:text-white w-full max-w-225 m-auto">
@@ -84,13 +81,13 @@ export const SettingsPanel = () => {
           className="mt-auto mb-4 w-full rounded-2xl bg-white text-black pt-3 pb-4 text-2xl font-semibold dark:bg-black dark:text-white outline-2 cursor-pointer hover:bg-accent hover:scale-101 transition duration-300"
           onClick={() => dispatch(openConfirmResetStats())}
         >
-          {translate("settings", "resetStats", resetStats)}
+          {translate("settings", "resetStats", lang)}
         </button>
         <button
           className="w-full rounded-2xl bg-black text-white pt-3 pb-4 text-2xl font-semibold dark:bg-white dark:text-black cursor-pointer hover:bg-accent hover:scale-101 transition duration-300"
           onClick={() => dispatch(openTasksModal())}
         >
-          {translate("settings", "statistics", statistics)}
+          {translate("settings", "statistics", lang)}
         </button>
       </div>
     </div>
