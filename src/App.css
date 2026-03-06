@@ -5,6 +5,14 @@
   --color-accent: #ff6a00;
 }
 
+html {
+  background-color: white;
+}
+
+html.dark {
+  background-color: black;
+}
+
 body {
-  @apply bg-white dark:bg-black;
+  background-color: transparent;
 }
