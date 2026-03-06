@@ -20,7 +20,7 @@ export const FocusTimerPage = () => {
   return (
     <div className="fixed inset-0 overflow-hidden bg-white dark:bg-black text-black dark:text-white">
       <div
-        className={`flex h-full pb-[env(safe-area-inset-bottom)] w-[300%] transform transition-transform duration-300 ease-out ${translateClass}`}
+        className={`flex h-full pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] w-[300%] transform transition-transform duration-300 ease-out ${translateClass}`}
       >
         <section className="h-full w-screen shrink-0">
           <RunningPanel />
