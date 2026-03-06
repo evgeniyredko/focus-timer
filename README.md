@@ -1,73 +1,87 @@
-# React + TypeScript + Vite
+# focus-timer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Focus Timer / Pomodoro приложение: фокус-сессии, перерывы и базовая статистика.
 
-Currently, two official plugins are available:
+## Краткое описание
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Что это:** таймер для концентрации (фокус → короткий перерыв → … → длинный перерыв).
+- **Для кого:** для работы/учёбы, когда нужно удерживать внимание и измерять прогресс.
 
-## React Compiler
+| Таймер                                      | Настройки                                      | Статистика                                  |
+| ------------------------------------------- | ---------------------------------------------- | ------------------------------------------- |
+| <img src="docs/demo/timer.gif" width="250"> | <img src="docs/demo/settings.gif" width="250"> | <img src="docs/demo/stats.gif" width="250"> |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Содержание
 
-## Expanding the ESLint configuration
+- [О проекте](#о-проекте)
+- [Ключевые функции](#ключевые-функции)
+- [Поддерживаемые платформы](#поддерживаемые-платформы)
+- [Использование](#использование)
+- [Скриншоты](#скриншоты)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## О проекте
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+**focus-timer** — приложение Pomodoro, помогающее работать «короткими рывками» и регулярно делать перерывы.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Технологии
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+- Frontend: **Vite + React + TypeScript**
+- UI: **Tailwind CSS**
+- State management: **Redux Toolkit** (+react-redux)
+- PWA: **vite-plugin-pwa** (manifest + service worker)
+- Хранилище: **localStorage** (на стороне браузера)
+- Уведомления: **Web Notifications API**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Цели
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+- Снизить когнитивную нагрузку: фокусироваться на одной задаче в рамках короткого интервала.
+- Дать простой ритуал работы: «запустить сессию» легче, чем «начать большую задачу».
+- Поддерживать устойчивость: перерывы помогают не выгорать и сохранять качество работы.
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+### Термины
+
+- **Фокус-сессия**: интервал целенаправленной работы.
+- **Короткий перерыв**: короткая пауза между фокус-сессиями.
+- **Длинный перерыв**: более длинная пауза после нескольких циклов.
+- **Цикл**: последовательность «фокус → перерыв», повторяемая несколько раз до длинного перерыва.
+
+## Ключевые функции
+
+| Блок        | Функция                                      | Описание                                                                |
+| :---------- | :------------------------------------------- | :---------------------------------------------------------------------- |
+| Таймер      | Pomodoro-таймер (фокус/перерывы/циклы)       | Фазы **focus / short break / long break** + циклы до длинного перерыва. |
+| Таймер      | Настройка длительности фаз (минуты)          | Настраиваются фокус/короткий/длинный перерыв и число циклов.            |
+| Таймер      | Пауза/продолжить                             | Пауза не сбрасывает прогресс.                                           |
+| Таймер      | Пропуск фазы / «далее»                       | Можно завершить фазу вручную и перейти дальше.                          |
+| Таймер      | Сброс текущей сессии                         | Сбрасывает таймер и цикл до начального состояния.                       |
+| Задачи      | Привязка таймера к задаче                    | Время фокус-сессии можно учитывать в «текущую задачу».                  |
+| Статистика  | Сегодня: отработанное время                  | Суммарное время за день.                                                |
+| Статистика  | Сегодня: количество завершённых циклов/задач | Например: завершённые задачи за день.                                   |
+| Уведомления | Системные уведомления браузера/ОС            | Требует разрешение браузера/ОС.                                         |
+| Уведомления | Звуки (старт/пауза/окончание)                | Звуки для ключевых действий.                                            |
+| UX          | Темы оформления (light/dark/system)          | Поддержка системной темы.                                               |
+| UX          | Локализация (RU/EN)                          | Минимальный словарь интерфейса.                                         |
+| UX          | Горячие клавиши                              | Частично (например, Enter в поле ввода)                                 |
+
+## Поддерживаемые платформы
+
+- **Веб-приложение** (запускается в браузере).
+- **PWA** (установка на устройство).
+
+## Использование
+
+### Пользовательский сценарий
+
+1. Откройте приложение.
+2. Введите название задачи.
+3. Запустите фокус-сессию.
+4. Работайте до окончания таймера.
+5. Сделайте перерыв.
+6. Повторяйте циклы до длинного перерыва.
+7. Отслеживайте статистику
+
+## Скришоты
+
+| Главный экран                                     | Таймер                                             | Настройки                                             |
+| ------------------------------------------------- | -------------------------------------------------- | ----------------------------------------------------- |
+| <img src="docs/screenshots/main.png" width="300"> | <img src="docs/screenshots/timer.png" width="300"> | <img src="docs/screenshots/settings.png" width="300"> |
