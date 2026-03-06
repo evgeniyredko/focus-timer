@@ -27,15 +27,6 @@ Focus Timer / Pomodoro приложение: фокус-сессии, перер
 
 **focus-timer** — приложение Pomodoro, помогающее работать «короткими рывками» и регулярно делать перерывы.
 
-### Технологии
-
-- Frontend: **Vite + React + TypeScript**
-- UI: **Tailwind CSS**
-- State management: **Redux Toolkit** (+react-redux)
-- PWA: **vite-plugin-pwa** (manifest + service worker)
-- Хранилище: **localStorage** (на стороне браузера)
-- Уведомления: **Web Notifications API**
-
 ### Цели
 
 - Снизить когнитивную нагрузку: фокусироваться на одной задаче в рамках короткого интервала.
@@ -48,6 +39,15 @@ Focus Timer / Pomodoro приложение: фокус-сессии, перер
 - **Короткий перерыв**: короткая пауза между фокус-сессиями.
 - **Длинный перерыв**: более длинная пауза после нескольких циклов.
 - **Цикл**: последовательность «фокус → перерыв», повторяемая несколько раз до длинного перерыва.
+
+### Технологии
+
+- Frontend: **Vite + React + TypeScript**
+- UI: **Tailwind CSS**
+- State management: **Redux Toolkit** (+react-redux)
+- PWA: **vite-plugin-pwa** (manifest + service worker)
+- Хранилище: **localStorage** (на стороне браузера)
+- Уведомления: **Web Notifications API**
 
 ## Ключевые функции
 
