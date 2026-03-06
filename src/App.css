@@ -6,9 +6,5 @@
 }
 
 body {
-  background: white;
-}
-
-html.dark body {
-  background: black;
+  @apply bg-white dark:bg-black;
 }
