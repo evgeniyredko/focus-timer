@@ -21,19 +21,21 @@ export const FocusTimerPage = () => {
     <div className="fixed inset-0 overflow-hidden bg-white dark:bg-black text-black dark:text-white">
       <div
         className={`flex h-full w-[300%] transform transition-transform duration-300 ease-out ${translateClass}`}
-        style={{
-          paddingTop: "env(safe-area-inset-top)",
-          paddingBottom: "env(safe-area-inset-bottom)",
-        }}
       >
         <section className="h-full w-screen shrink-0">
-          <RunningPanel />
+          <div className="box-border h-full pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
+            <RunningPanel />
+          </div>
         </section>
         <section className="h-full w-screen shrink-0">
-          <MainPanel />
+          <div className="box-border h-full pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
+            <MainPanel />
+          </div>
         </section>
         <section className="h-full w-screen shrink-0">
-          <SettingsPanel />
+          <div className="box-border h-full pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
+            <SettingsPanel />
+          </div>
         </section>
       </div>
       <PhaseCompleteModal />
