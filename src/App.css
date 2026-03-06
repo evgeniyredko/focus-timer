@@ -4,3 +4,11 @@
 @theme {
   --color-accent: #ff6a00;
 }
+
+body {
+  background: white;
+}
+
+html.dark body {
+  background: black;
+}
