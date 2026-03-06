@@ -18,7 +18,9 @@ export const FocusTimerPage = () => {
     view === "timer" ? "translate-x-0" : view === "main" ? "-translate-x-1/3" : "-translate-x-2/3";
 
   return (
-    <div className="h-svh w-screen overflow-hidden bg-white dark:bg-black text-black dark:text-white">
+    <div className="min-h-svh w-full overflow-hidden bg-white dark:bg-black text-black dark:text-white"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
       <div
         className={`flex h-full w-[300%] transform transition-transform duration-300 ease-out ${translateClass}`}
       >
